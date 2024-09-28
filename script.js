@@ -51,7 +51,7 @@ window.onload = function() {
     // Oyun bitirme fonksiyonu
     function endGame() {
         gameInProgress = false; // Oyun sona erdi
-        if (score < 25) {
+        if (score < 58) {
             messageElement.textContent = "Aybüke'den yeteri kadar nefret etmiyorsun. Biraz daha sohbet edip öyle gel.";
         } else {
             messageElement.textContent = "Aybüke'den Gerçekten Nefret Ediyorsun Tebrikler!";
