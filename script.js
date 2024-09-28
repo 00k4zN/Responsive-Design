@@ -1,15 +1,13 @@
 window.onload = function() {
     let score = 0;
-    let gameInProgress = false;
+    let gameInProgress = false; // Oyunun durumunu kontrol eder
+    const slapSound = new Audio('slap.mp3'); // Tokat sesi tanımla
 
-    // HTML öğelerine erişim
+    // HTML elementlerine erişim
     const targetImage = document.getElementById('target');
     const scoreElement = document.getElementById('score');
     const messageElement = document.getElementById('message');
     const resetButton = document.getElementById('reset-btn');
-
-    // Slap sesi tanımlama
-    const slapSound = new Audio('slap.mp3');
 
     // HTML elementlerinin varlığını kontrol et
     if (!targetImage || !scoreElement || !messageElement || !resetButton) {
@@ -17,13 +15,14 @@ window.onload = function() {
         return;
     }
 
-    // Tıklama olayını tanımla
+    // Görsele tıklama olayını tanımla
     targetImage.addEventListener('click', () => {
-        if (!gameInProgress) return;  // Oyun devam etmiyorsa çıkış yap
+        if (!gameInProgress) return; // Oyun devam etmiyorsa çıkış yap
         score++;
         scoreElement.textContent = `Skor: ${score}`;
 
         // Tokat sesi çal
+        slapSound.currentTime = 0; // Sesi sıfırla (aynı ses tekrar tekrar oynatılabilsin)
         slapSound.play();
 
         // Tokat animasyonu
@@ -34,36 +33,39 @@ window.onload = function() {
     });
 
     // Tekrar Oyna butonuna tıklama olayı
-    resetButton.addEventListener('click', resetGame);
+    resetButton.addEventListener('click', () => {
+        resetGame(); // Önce oyunu sıfırla
+        startGame(); // Sonra tekrar başlat
+    });
 
     // Oyun başlatma fonksiyonu
     function startGame() {
-        score = 0;
+        score = 0; // Skoru sıfırla
         gameInProgress = true; // Oyun başladı
         scoreElement.textContent = `Skor: 0`;
-        messageElement.textContent = '';
-        resetButton.style.display = 'none'; // Tekrar oyna butonunu gizle
+        messageElement.textContent = ''; // Mesajı temizle
+        resetButton.style.display = 'none'; // Tekrar Oyna butonunu gizle
         setTimeout(endGame, 10000); // 10 saniye sonra oyunu bitir
     }
 
-    // Oyun sonlandırma fonksiyonu
+    // Oyun bitirme fonksiyonu
     function endGame() {
         gameInProgress = false; // Oyun sona erdi
-        if (score < 57) {
+        if (score < 25) {
             messageElement.textContent = "Aybüke'den yeteri kadar nefret etmiyorsun. Biraz daha sohbet edip öyle gel.";
         } else {
             messageElement.textContent = "Aybüke'den Gerçekten Nefret Ediyorsun Tebrikler!";
         }
-        resetButton.style.display = 'block'; // Tekrar oyna butonunu göster
+        resetButton.style.display = 'block'; // Tekrar Oyna butonunu göster
     }
 
-    // Oyunu sıfırlama fonksiyonu
+    // Oyun sıfırlama fonksiyonu
     function resetGame() {
-        score = 0;
+        score = 0; // Skoru sıfırla
+        gameInProgress = false; // Oyun sıfırlandı
         scoreElement.textContent = `Skor: 0`;
-        messageElement.textContent = '';
-        resetButton.style.display = 'none'; // Tekrar oyna butonunu gizle
-        gameInProgress = false; // Oyun sıfırlandı, bekleme durumunda
+        messageElement.textContent = ''; // Mesajları temizle
+        resetButton.style.display = 'none'; // Tekrar Oyna butonunu gizle
     }
 
     // Sayfa yüklendiğinde oyunu başlat
