@@ -1,0 +1,46 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+}
+
+#game-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin: 20px;
+}
+
+#target {
+    cursor: pointer;
+    width: 150px;
+    height: auto;
+    transition: transform 0.1s ease;
+}
+
+#score-container {
+    margin: 20px 0;
+}
+
+#message {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+}
+
+#reset-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: none;
+}
